@@ -95,6 +95,7 @@ class CustomTabsOptions {
   final CustomTabsShareState? shareState;
   final bool showTitle;
   final bool urlBarHidingEnabled;
+  final bool privateMode;
 
   const CustomTabsOptions({
     this.colorScheme = CustomTabsColorScheme.system,
@@ -109,6 +110,7 @@ class CustomTabsOptions {
     this.shareState,
     this.showTitle = false,
     this.urlBarHidingEnabled = false,
+    this.privateMode = false,
   });
 }
 
@@ -212,6 +214,7 @@ class FlutterWebBrowser {
         'shareState': customTabsShareState.index,
         'showTitle': customTabsOptions.showTitle,
         'urlBarHidingEnabled': customTabsOptions.urlBarHidingEnabled,
+        'privateMode': customTabsOptions.privateMode,
       },
       'ios_options': {
         'barCollapsingEnabled': safariVCOptions.barCollapsingEnabled,

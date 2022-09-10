@@ -81,6 +81,12 @@ public class MethodCallHandlerImpl implements MethodCallHandler {
         builder.setUrlBarHidingEnabled((Boolean) options.get("urlBarHidingEnabled"));
 
         CustomTabsIntent customTabsIntent = builder.build();
+
+        boolean shouldOpenInINCOGNITOMode = options.containsKey("privateMode") && (Boolean) options.get("privateMode");
+        if (shouldOpenInINCOGNITOMode) {
+            customTabsIntent.intent.putExtra("EXTRA_OPEN_NEW_INCOGNITO_TAB", true);
+        }
+
         customTabsIntent.intent.setPackage(getPackageName());
         customTabsIntent.launchUrl(activity, Uri.parse(url));
 
