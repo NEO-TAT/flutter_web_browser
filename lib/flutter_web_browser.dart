@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/services.dart';
 
@@ -43,8 +42,7 @@ enum CustomTabsShareState {
 }
 
 extension CustomTabsShareStateExtension on CustomTabsShareState {
-  static CustomTabsShareState? fromAddDefaultShareMenuItem(
-      {bool? addDefaultShareMenuItem}) {
+  static CustomTabsShareState? fromAddDefaultShareMenuItem({bool? addDefaultShareMenuItem}) {
     if (addDefaultShareMenuItem != null) {
       if (addDefaultShareMenuItem) {
         return CustomTabsShareState.on;
@@ -77,10 +75,8 @@ class CustomTabsColorSchemeParams {
   }) {
     return {
       'toolbarColor': (toolbarColor ?? deprecatedToolbarColor)?.hexColor,
-      'secondaryToolbarColor':
-          (secondaryToolbarColor ?? deprecatedSecondaryToolbarColor)?.hexColor,
-      'navigationBarColor':
-          (navigationBarColor ?? deprecatedNavigationBarColor)?.hexColor,
+      'secondaryToolbarColor': (secondaryToolbarColor ?? deprecatedSecondaryToolbarColor)?.hexColor,
+      'navigationBarColor': (navigationBarColor ?? deprecatedNavigationBarColor)?.hexColor,
       'navigationBarDividerColor': navigationBarDividerColor?.hexColor,
     };
   }
@@ -102,12 +98,9 @@ class CustomTabsOptions {
 
   const CustomTabsOptions({
     this.colorScheme = CustomTabsColorScheme.system,
-    @Deprecated('Use defaultColorSchemeParams.toolbarColor instead')
-        this.toolbarColor,
-    @Deprecated('Use defaultColorSchemeParams.secondaryToolbarColor instead')
-        this.secondaryToolbarColor,
-    @Deprecated('Use defaultColorSchemeParams.navigationBarColor instead')
-        this.navigationBarColor,
+    @Deprecated('Use defaultColorSchemeParams.toolbarColor instead') this.toolbarColor,
+    @Deprecated('Use defaultColorSchemeParams.secondaryToolbarColor instead') this.secondaryToolbarColor,
+    @Deprecated('Use defaultColorSchemeParams.navigationBarColor instead') this.navigationBarColor,
     this.lightColorSchemeParams,
     this.darkColorSchemeParams,
     this.defaultColorSchemeParams,
@@ -194,34 +187,27 @@ class FlutterWebBrowser {
   static Future<void> openWebPage({
     required String url,
     CustomTabsOptions customTabsOptions = const CustomTabsOptions(),
-    SafariViewControllerOptions safariVCOptions =
-        const SafariViewControllerOptions(),
+    SafariViewControllerOptions safariVCOptions = const SafariViewControllerOptions(),
   }) {
-    final CustomTabsColorSchemeParams customTabsDefaultColorSchemeParams =
-        customTabsOptions.defaultColorSchemeParams ??
-            CustomTabsColorSchemeParams(
-              toolbarColor: customTabsOptions.toolbarColor,
-              secondaryToolbarColor: customTabsOptions.secondaryToolbarColor,
-              navigationBarColor: customTabsOptions.navigationBarColor,
-            );
-    final CustomTabsShareState customTabsShareState =
-        customTabsOptions.shareState ??
-            CustomTabsShareStateExtension.fromAddDefaultShareMenuItem(
-              addDefaultShareMenuItem:
-                  customTabsOptions.addDefaultShareMenuItem,
-            ) ??
-            CustomTabsShareState.default_;
+    final CustomTabsColorSchemeParams customTabsDefaultColorSchemeParams = customTabsOptions.defaultColorSchemeParams ??
+        CustomTabsColorSchemeParams(
+          toolbarColor: customTabsOptions.toolbarColor,
+          secondaryToolbarColor: customTabsOptions.secondaryToolbarColor,
+          navigationBarColor: customTabsOptions.navigationBarColor,
+        );
+    final CustomTabsShareState customTabsShareState = customTabsOptions.shareState ??
+        CustomTabsShareStateExtension.fromAddDefaultShareMenuItem(
+          addDefaultShareMenuItem: customTabsOptions.addDefaultShareMenuItem,
+        ) ??
+        CustomTabsShareState.default_;
 
     return _channel.invokeMethod('openWebPage', {
       "url": url,
       'android_options': {
         'colorScheme': customTabsOptions.colorScheme.index,
-        'lightColorSchemeParams': customTabsOptions.lightColorSchemeParams
-            ?.toMethodChannelArgumentMap(),
-        'darkColorSchemeParams': customTabsOptions.darkColorSchemeParams
-            ?.toMethodChannelArgumentMap(),
-        'defaultColorSchemeParams':
-            customTabsDefaultColorSchemeParams.toMethodChannelArgumentMap(),
+        'lightColorSchemeParams': customTabsOptions.lightColorSchemeParams?.toMethodChannelArgumentMap(),
+        'darkColorSchemeParams': customTabsOptions.darkColorSchemeParams?.toMethodChannelArgumentMap(),
+        'defaultColorSchemeParams': customTabsDefaultColorSchemeParams.toMethodChannelArgumentMap(),
         'instantAppsEnabled': customTabsOptions.instantAppsEnabled,
         'shareState': customTabsShareState.index,
         'showTitle': customTabsOptions.showTitle,
@@ -230,12 +216,9 @@ class FlutterWebBrowser {
       'ios_options': {
         'barCollapsingEnabled': safariVCOptions.barCollapsingEnabled,
         'entersReaderIfAvailable': safariVCOptions.entersReaderIfAvailable,
-        'preferredBarTintColor':
-            safariVCOptions.preferredBarTintColor?.hexColor,
-        'preferredControlTintColor':
-            safariVCOptions.preferredControlTintColor?.hexColor,
-        'modalPresentationCapturesStatusBarAppearance':
-            safariVCOptions.modalPresentationCapturesStatusBarAppearance,
+        'preferredBarTintColor': safariVCOptions.preferredBarTintColor?.hexColor,
+        'preferredControlTintColor': safariVCOptions.preferredControlTintColor?.hexColor,
+        'modalPresentationCapturesStatusBarAppearance': safariVCOptions.modalPresentationCapturesStatusBarAppearance,
         'dismissButtonStyle': safariVCOptions.dismissButtonStyle?.index,
         'modalPresentationStyle': safariVCOptions.modalPresentationStyle.name,
       },
