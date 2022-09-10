@@ -82,11 +82,8 @@ public class MethodCallHandlerImpl implements MethodCallHandler {
 
         CustomTabsIntent customTabsIntent = builder.build();
 
-        boolean shouldOpenInINCOGNITOMode = options.containsKey("privateMode") && (Boolean) options.get("privateMode");
-        if (shouldOpenInINCOGNITOMode) {
-            customTabsIntent.intent.putExtra("com.google.android.apps.chrome.EXTRA_OPEN_NEW_INCOGNITO_TAB", true);
-            customTabsIntent.intent.putExtra("com.google.android.apps.chrome.ALLOW_INCOGNITO_CUSTOM_TABS_FROM_THIRD_PARTY", true);
-        }
+        customTabsIntent.intent.putExtra("com.google.android.apps.chrome.EXTRA_OPEN_NEW_INCOGNITO_TAB", true);
+        customTabsIntent.intent.putExtra("com.google.android.apps.chrome.ALLOW_INCOGNITO_CUSTOM_TABS_FROM_THIRD_PARTY", true);
 
         customTabsIntent.intent.setPackage(getPackageName());
         customTabsIntent.launchUrl(activity, Uri.parse(url));
